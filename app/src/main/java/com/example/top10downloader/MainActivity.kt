@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "onCreate called")
         val downloadData = DownloadData()
-        downloadData.execute("URL goes here")
+        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml")
         Log.d(TAG, "onCreate: done")
     }
 
@@ -73,6 +73,8 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "downloadXML: Invalid URL ${e.message}")
                 } catch (e: IOException) {
                     Log.e(TAG, "downloadXML: IO Exception reading data ${e.message}")
+                } catch (e: SecurityException) {
+                    Log.e(TAG, "download XML: Security Exception, needs permissions")
                 } catch (e: Exception) {
                     Log.e(TAG, "Unknown Exception: ${e.message}")
                 }
