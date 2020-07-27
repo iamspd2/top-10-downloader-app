@@ -4,10 +4,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import java.io.BufferedReader
-import java.io.IOError
 import java.io.IOException
-import java.io.InputStreamReader
 import java.lang.Exception
 import java.lang.StringBuilder
 import java.net.HttpURLConnection
@@ -55,16 +52,18 @@ class MainActivity : AppCompatActivity() {
 //            val inputStream = connection.inputStream
 //            val inputStreamReader = InputStreamReader(inputStream)
 //            val reader = BufferedReader(inputStreamReader)
-                    val reader = BufferedReader(InputStreamReader(connection.inputStream))
-
-                    val inputBuffer = CharArray(500)
-                    var charsRead = 0
-                    while (charsRead >=0) {
-                        charsRead = reader.read(inputBuffer)
-                        if(charsRead > 0)
-                            xmlResult.append(String(inputBuffer, 0, charsRead))
-                    }
-                    reader.close()
+//                    val reader = BufferedReader(InputStreamReader(connection.inputStream))
+//
+//                    val inputBuffer = CharArray(500)
+//                    var charsRead = 0
+//                    while (charsRead >=0) {
+//                        charsRead = reader.read(inputBuffer)
+//                        if(charsRead > 0)
+//                            xmlResult.append(String(inputBuffer, 0, charsRead))
+//                    }
+//                    reader.close()
+                    val stream = connection.inputStream
+                    stream.buffered().reader().use { xmlResult.append(it.readText()) }
 
                     Log.d(TAG, "Received ${xmlResult.length} bytes")
                     return xmlResult.toString()
