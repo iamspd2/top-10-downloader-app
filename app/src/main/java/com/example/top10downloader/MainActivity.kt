@@ -3,6 +3,7 @@ package com.example.top10downloader
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -45,6 +46,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Log.d(TAG, "onCreate called")
+
+        if (savedInstanceState!= null) {
+            feedURL = savedInstanceState.getString(STATE_URL).toString()
+            feedLimit = savedInstanceState.getInt(STATE_LIMIT)
+        }
         downloadUrl(feedURL.format(feedLimit))
         Log.d(TAG, "onCreate: done")
     }
@@ -90,6 +97,12 @@ class MainActivity : AppCompatActivity() {
 
         downloadUrl(feedURL.format(feedLimit))
         return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(STATE_URL, feedURL)
+        outState.putInt(STATE_LIMIT, feedLimit)
     }
 
     override fun onDestroy() {
