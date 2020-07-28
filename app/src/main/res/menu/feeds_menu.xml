@@ -14,7 +14,15 @@
     <group
         android:id="@+id/mnuLimit"
         android:checkableBehavior="single">
-        <item android:title="Top 10" />
-        <item android:title="Top 25" />
+        <item
+            android:id="@+id/mnu10"
+            android:checked="true"
+            android:title="Top 10" />
+        <item
+            android:id="@+id/mnu25"
+            android:title="Top 25" />
     </group>
+    <item
+        android:id="@+id/mnuRefresh"
+        android:title="Refresh" />
 </menu>
